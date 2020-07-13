@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(breakout VERSION 1.0.0 LANGUAGES C)
+project(breakout VERSION 0.1.0 LANGUAGES C)
 
 # raylib
 add_subdirectory(external/raylib)

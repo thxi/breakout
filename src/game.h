@@ -27,7 +27,7 @@ typedef struct Ball {
 
 void update_paddle(Rectangle* paddle, float deltaTime);
 void update_ball(Ball* ball, Rectangle paddle, Brick* bricks, float deltaTime);
-bool collision_ball_paddle(Ball* ball, Rectangle paddle);
+bool collision_ball_paddle(Ball* ball, Rectangle paddle, float deltaTime);
 bool collision_ball_wall(Ball* ball);
 bool collision_ball_bricks(Ball* ball, Brick* bricks, float deltaTime);
 bool collision_ball_brick(Ball* ball, Brick* brick, float deltaTime);

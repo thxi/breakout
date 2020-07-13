@@ -11,7 +11,7 @@ void update_ball(Ball* ball, Rectangle paddle, Brick* bricks, float deltaTime) {
   ball->pos.x += ball->speed.x * deltaTime;
   ball->pos.y += ball->speed.y * deltaTime;
   collision_ball_wall(ball);
-  collision_ball_paddle(ball, paddle);
+  collision_ball_paddle(ball, paddle, deltaTime);
   collision_ball_bricks(ball, bricks, deltaTime);
 }
 
@@ -24,17 +24,18 @@ bool collision_ball_wall(Ball* ball) {
     ball->speed.y *= -1.0f;
   return true;
 }
-bool collision_ball_paddle(Ball* ball, Rectangle paddle) {
+bool collision_ball_paddle(Ball* ball, Rectangle paddle, float deltaTime) {
   float px = paddle.x;
   float py = paddle.y;
   if (ball->pos.x >= px && ball->pos.x <= px + paddle.width &&
       ball->pos.y >= py && ball->pos.y <= py + paddle.height) {
-    ball->color = BLUE;
+    ball->pos.x -= ball->speed.x * deltaTime;
+    ball->pos.y -= ball->speed.y * deltaTime;
     ball->speed.y *= -1;
+    return true;
   } else {
-    ball->color = GREEN;
+    return false;
   }
-  return true;
 }
 
 bool collision_ball_bricks(Ball* ball, Brick* bricks, float deltaTime) {
@@ -47,18 +48,6 @@ bool collision_ball_bricks(Ball* ball, Brick* bricks, float deltaTime) {
       if (brick->alive) {
         bool collision = collision_ball_brick(ball, brick, deltaTime);
         if (collision) {
-          float ballx = ball->pos.x, bally = ball->pos.y;
-          float prevx = ballx - ball->speed.x * deltaTime;
-          float prevy = bally - ball->speed.y * deltaTime;
-          float left = brick->rect.x;
-          float right = brick->rect.x + brick->rect.width;
-          float top = brick->rect.y;
-          float bottom = brick->rect.y + brick->rect.height;
-          printf("top %f, left %f, right %f, bottom %f\n", top, left, right,
-                 bottom);
-          printf("brick: %f %f\n", brick->rect.x, brick->rect.y);
-          printf("prevx %f, prevy %f\n", prevx, prevy);
-          printf("ball: %f %f\n", ball->pos.x, ball->pos.y);
           return true;
         }
       }
@@ -81,7 +70,7 @@ bool collision_ball_brick(Ball* ball, Brick* brick, float deltaTime) {
   if (ballx >= left && ballx <= right) {
     if (prevy <= top && bally >= top) {
       // - top wall
-      printf(" - top wall");
+      printf(" - top wall\n");
       ball->speed.y *= -1;
       goto collision;
     }
@@ -89,7 +78,7 @@ bool collision_ball_brick(Ball* ball, Brick* brick, float deltaTime) {
   if (ballx >= left && ballx <= right) {
     if (prevy >= bottom && bally <= bottom) {
       // - bottom wall
-      printf(" - bottom wall");
+      printf(" - bottom wall\n");
       ball->speed.y *= -1;
       goto collision;
     }
@@ -97,7 +86,7 @@ bool collision_ball_brick(Ball* ball, Brick* brick, float deltaTime) {
   if (bally >= top && bally <= bottom) {
     if (prevx <= left && ballx >= left) {
       // | left wall
-      printf(" | left wall");
+      printf(" | left wall\n");
       ball->speed.x *= -1;
       goto collision;
     }
@@ -105,7 +94,7 @@ bool collision_ball_brick(Ball* ball, Brick* brick, float deltaTime) {
   if (bally >= top && bally <= bottom) {
     if (prevx >= right && ballx <= right) {
       // | right wall
-      printf(" | right wall");
+      printf(" | right wall\n");
       ball->speed.x *= -1;
       goto collision;
     }

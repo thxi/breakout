@@ -11,6 +11,7 @@ set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -fsanitize=address -fsanitize=undefined")
 
 add_executable(${PROJECT_NAME} 
     src/main.c
+    src/game.c
 )
 target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra -Werror -fexceptions)
 target_link_libraries(${PROJECT_NAME} raylib)

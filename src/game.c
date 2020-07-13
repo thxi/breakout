@@ -25,15 +25,12 @@ bool collision_ball_wall(Ball* ball) {
   return true;
 }
 bool collision_ball_paddle(Ball* ball, Rectangle paddle) {
-  // TODO
-  // a bit incorrect
-  // but fine for now
-  if (ball->pos.x + ball->radius >= paddle.x &&
-      ball->pos.x - ball->radius <= paddle.x + paddle.width) {
+  float px = paddle.x;
+  float py = paddle.y;
+  if (ball->pos.x >= px && ball->pos.x <= px + paddle.width &&
+      ball->pos.y >= py && ball->pos.y <= py + paddle.height) {
     ball->color = BLUE;
-    if (ball->pos.y + ball->radius >= paddle.y) {
-      ball->speed.y *= -1;
-    }
+    ball->speed.y *= -1;
   } else {
     ball->color = GREEN;
   }

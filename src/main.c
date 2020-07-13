@@ -14,7 +14,7 @@ int main() {
 
   Ball ball = (Ball){
       .pos = {400, 350},
-      .speed = {.x = 150, .y = -150},
+      .speed = {.x = 300, .y = -300},
       .radius = 5,
       .color = GREEN,
   };

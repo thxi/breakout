@@ -13,8 +13,8 @@ int main() {
   Color lineToColor[nLines] = {RED, ORANGE, GOLD, YELLOW, GREEN, BLUE};
 
   Ball ball = (Ball){
-      .pos = {GetScreenWidth() / 2, GetScreenHeight() / 2},
-      .speed = {200, 200},
+      .pos = {400, 350},
+      .speed = {-100, -100},
       .radius = 5,
       .color = GREEN,
   };
@@ -34,8 +34,9 @@ int main() {
                                 .color = lineToColor[line]};
     }
   }
-  printf("end init\n");
+
   SetTargetFPS(60);
+  printf("end init\n");
 
   // Main game loop
   while (!WindowShouldClose())  // Detect window close button or ESC key
@@ -43,15 +44,13 @@ int main() {
     float deltaTime = GetFrameTime();
 
     update_paddle(&paddle, deltaTime);
-    update_ball(&ball, paddle, deltaTime);
+    update_ball(&ball, paddle, (void*)bricks, deltaTime);
 
     // Draw
     BeginDrawing();
     DrawFPS(screenWidth - 90, screenHeight - 30);
 
     ClearBackground(RAYWHITE);
-
-    DrawCircleV(ball.pos, ball.radius, ball.color);
 
     DrawText("move the paddle with arrow keys", 10, 10, 20, DARKGRAY);
 
@@ -64,6 +63,8 @@ int main() {
         }
       }
     }
+
+    DrawCircleV(ball.pos, ball.radius, ball.color);
 
     EndDrawing();
   }

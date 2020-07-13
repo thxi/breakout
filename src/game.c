@@ -81,36 +81,35 @@ bool collision_ball_brick(Ball* ball, Brick* brick, float deltaTime) {
   float bottom = brick->rect.y + brick->rect.height;
 
   // can be done in a switch case but who cares
-  if (bally > top && bally < bottom) {
-    if (prevx < left && ballx > left) {
-      // | left wall
-      printf(" | left wall");
-      ball->speed.x *= -1;
-      goto collision;
-    }
-  }
-  if (bally > top && bally < bottom) {
-    if (prevx > right && ballx < right) {
-      // | right wall
-      printf(" | right wall");
-      ball->speed.x *= -1;
-      goto collision;
-    }
-  }
-  if (ballx > left && ballx < right) {
-    if (prevy < top && bally > top) {
-      printf("HERE3");
+  if (ballx >= left && ballx <= right) {
+    if (prevy <= top && bally >= top) {
       // - top wall
       printf(" - top wall");
       ball->speed.y *= -1;
       goto collision;
     }
   }
-  if (ballx > left && ballx < right) {
-    if (prevy > bottom && bally < bottom) {
+  if (ballx >= left && ballx <= right) {
+    if (prevy >= bottom && bally <= bottom) {
       // - bottom wall
       printf(" - bottom wall");
       ball->speed.y *= -1;
+      goto collision;
+    }
+  }
+  if (bally >= top && bally <= bottom) {
+    if (prevx <= left && ballx >= left) {
+      // | left wall
+      printf(" | left wall");
+      ball->speed.x *= -1;
+      goto collision;
+    }
+  }
+  if (bally >= top && bally <= bottom) {
+    if (prevx >= right && ballx <= right) {
+      // | right wall
+      printf(" | right wall");
+      ball->speed.x *= -1;
       goto collision;
     }
   }
@@ -118,6 +117,8 @@ bool collision_ball_brick(Ball* ball, Brick* brick, float deltaTime) {
 collision:
   brick->alive = false;
   brick->color = GRAY;
+  ball->pos.x = prevx;
+  ball->pos.y = prevy;
   return true;
 nocollision:
   return false;

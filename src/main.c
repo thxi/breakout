@@ -14,7 +14,7 @@ int main() {
 
   Ball ball = (Ball){
       .pos = {400, 350},
-      .speed = {-100, -100},
+      .speed = {.x = 150, .y = -150},
       .radius = 5,
       .color = GREEN,
   };
@@ -60,6 +60,9 @@ int main() {
       for (int i = 0; i < nBricks; i++) {
         if (bricks[line][i].alive) {
           DrawRectangleRec(bricks[line][i].rect, bricks[line][i].color);
+          Brick b = bricks[line][i];
+          DrawLine(b.rect.x, b.rect.y, b.rect.x, b.rect.y + b.rect.height,
+                   BLACK);
         }
       }
     }

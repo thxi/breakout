@@ -4,18 +4,9 @@
 
 A simple [Atari Breakout](<https://en.wikipedia.org/wiki/Breakout_(video_game)>) clone written in C using [raylib](https://www.raylib.com/)
 
-# TODO
-
-make release and debug builds
-
 # Install
 
-TODO:
-You can download the game on releases page
-
-## Manual
-
-To build the game manually:
+To build the game:
 
 - copy the repository and its submodules([raylib](https://github.com/raysan5/raylib))
 
@@ -36,7 +27,7 @@ cd build
 - generate cmake build files
 
 ```bash
-cmake ..
+cmake -DCMAKE_BUILD_TYPE=Release ..
 ```
 
 - build the project

@@ -7,14 +7,16 @@
 int main() {
   InitWindow(screenWidth, screenHeight, "Breakout");
 
-  Rectangle paddle = {
-      .x = screenWidth / 2, .y = paddleY, .width = 40, .height = 10};
+  Rectangle paddle = {.x = screenWidth / 2,
+                      .y = paddleY,
+                      .width = paddleWidth,
+                      .height = paddleHeight};
 
   Color lineToColor[nLines] = {RED, ORANGE, GOLD, YELLOW, GREEN, BLUE};
 
   Ball ball = (Ball){
       .pos = {400, 350},
-      .speed = {.x = 300, .y = -300},
+      .speed = {.x = 200, .y = -200},
       .radius = 5,
       .color = GREEN,
   };

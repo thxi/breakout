@@ -2,14 +2,16 @@
 
 #include "raylib.h"
 
-#define nLines 6
 #define screenWidth 600
 #define screenHeight 400
 
+#define nLines 6
 #define brickWidth 20
 #define brickHeight 10
 #define brickYOffset 50
 
+#define paddleWidth 80
+#define paddleHeight 10
 #define paddleY 380
 
 typedef struct Brick {

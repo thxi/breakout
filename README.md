@@ -30,6 +30,12 @@ cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
 ```
 
+or if you want the debug build
+
+```bash
+cmake -DCMAKE_BUILD_TYPE=Debug ..
+```
+
 - build the project
 
 ```bash
